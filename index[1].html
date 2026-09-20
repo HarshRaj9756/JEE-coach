@@ -6,17 +6,162 @@
 <title>JEE Coach — AI Study Command Center</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#07101f;--panel:#0c1729;--panel2:#101d33;--text:#ecf3ff;--muted:#91a2bd;--line:#1d2d47;--accent:#67e8f9;--accent2:#a78bfa;--good:#65e6a4;--warn:#f4c95d;--bad:#ff8a8a}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at top,#132444 0,#07101f 45%,#040914 100%);color:var(--text);min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.side{border-right:1px solid var(--line);background:rgba(5,12,24,.88);padding:20px;position:sticky;top:0;height:100vh}.brand{font-weight:800;font-size:20px;display:flex;gap:10px;align-items:center}.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#07101f;display:grid;place-items:center;font-weight:900}.tag{font-size:12px;color:var(--muted);margin:6px 0 24px}.nav{display:grid;gap:6px}.nav button{background:transparent;color:#b5c3d8;text-align:left;padding:11px 12px;border-radius:10px}.nav button.active,.nav button:hover{background:#11213a;color:#fff}.side-footer{position:absolute;left:20px;right:20px;bottom:18px}.small{font-size:12px;color:var(--muted)}.main{padding:28px;max-width:1400px;width:100%;margin:auto}.topbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:20px}.page-title{font-size:28px;font-weight:800}.pill{border:1px solid var(--line);background:#0c182c;padding:7px 10px;border-radius:999px;font-size:12px;color:#b9c7db}.grid{display:grid;gap:14px}.cards{grid-template-columns:repeat(4,minmax(0,1fr))}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:linear-gradient(180deg,rgba(16,29,51,.96),rgba(10,21,38,.96));border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 15px 30px rgba(0,0,0,.12)}.card h3{margin:0 0 8px;font-size:15px}.metric{font-size:28px;font-weight:800}.muted{color:var(--muted)}.row{display:flex;gap:10px;align-items:center}.between{justify-content:space-between}.btn{background:#172943;color:#eaf2ff;border:1px solid #2a4164;border-radius:10px;padding:10px 13px}.btn:hover{filter:brightness(1.12)}.primary{background:linear-gradient(135deg,#62e5f5,#91a7ff);color:#06101d;border:0;font-weight:800}.danger{background:#351b25;border-color:#6b3344}.input, textarea, select{width:100%;background:#081425;color:#eef5ff;border:1px solid #233855;border-radius:10px;padding:10px 11px;outline:none}.input:focus,textarea:focus,select:focus{border-color:#5aa9e6;box-shadow:0 0 0 3px rgba(90,169,230,.12)}textarea{min-height:100px;resize:vertical}.label{font-size:12px;color:#9fb0c8;display:block;margin:0 0 6px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.form-grid.three-cols{grid-template-columns:repeat(3,minmax(0,1fr))}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}.table th{color:#8ea0ba;font-weight:600}.progress{height:8px;border-radius:999px;background:#091525;overflow:hidden}.progress>div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))}.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed #2a3c58;border-radius:12px}.list{display:grid;gap:9px}.item{padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#091528}.coach{display:grid;grid-template-columns:220px 1fr;gap:14px;height:calc(100vh - 150px);min-height:560px}.threads{overflow:auto;padding-right:4px}.thread{padding:11px;border:1px solid transparent;border-radius:11px;color:#bdcbe0;margin-bottom:6px}.thread.active{background:#11213a;border-color:#274162;color:#fff}.messages{display:flex;flex-direction:column;background:#081323;border:1px solid var(--line);border-radius:14px;overflow:hidden}.message-list{padding:18px;overflow:auto;display:flex;flex-direction:column;gap:12px;flex:1}.msg{max-width:82%;padding:12px 14px;border-radius:14px;line-height:1.5;white-space:pre-wrap}.msg.user{align-self:flex-end;background:#16304f}.msg.assistant{align-self:flex-start;background:#0e1d31;border:1px solid #213651}.composer{border-top:1px solid var(--line);padding:12px;display:grid;grid-template-columns:1fr auto;gap:10px}.attach{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 12px}.filechip{font-size:12px;border:1px solid #29405f;background:#0c1930;border-radius:999px;padding:6px 9px}.setup{max-width:780px;margin:8vh auto;padding:32px}.hero{font-size:38px;line-height:1.1;margin:0 0 10px}.accent{background:linear-gradient(90deg,var(--accent),#d3c7ff);-webkit-background-clip:text;background-clip:text;color:transparent}.notice{border:1px solid #39506f;background:#0b1930;padding:12px;border-radius:11px;color:#c7d4e8;font-size:13px}.error{color:#ffaaaa}.success{color:#8bf0ba}.kpis{display:flex;gap:12px;flex-wrap:wrap}.kpi{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0b1728}.schedule-row{display:grid;grid-template-columns:90px 70px 1fr 80px auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.status{font-size:11px;border-radius:999px;padding:4px 7px;background:#182941}.done{background:#173b2c;color:#93f3bd}.skipped{background:#3c2330;color:#ffb6c1}.modal{position:fixed;inset:0;background:rgba(0,0,0,.66);display:grid;place-items:center;padding:20px;z-index:10}.modal-box{width:min(720px,100%);max-height:90vh;overflow:auto;background:#0b1729;border:1px solid #2a3e5e;border-radius:16px;padding:20px}.footer-note{font-size:11px;color:#72849e}
-@media(max-width:1100px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.shell{grid-template-columns:1fr}.side{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}.side-footer{position:static;margin-top:20px}.coach{height:auto;grid-template-columns:1fr}.threads{max-height:260px}.form-grid,.form-grid.three-cols{grid-template-columns:1fr}}
-@media(max-width:680px){.cards{grid-template-columns:1fr}.main{padding:18px}.hero{font-size:30px}.topbar{align-items:flex-start;flex-direction:column}.schedule-row{grid-template-columns:68px 56px 1fr;}.schedule-row .hide-sm{display:none}}
+:root{
+  --bg:#07111f;
+  --bg2:#0a1526;
+  --panel:rgba(14,27,47,.82);
+  --panel-strong:#0e1a2e;
+  --panel-soft:rgba(255,255,255,.035);
+  --line:rgba(148,163,184,.14);
+  --line-strong:rgba(148,163,184,.22);
+  --text:#f6f8fc;
+  --muted:#91a0b7;
+  --muted2:#6f7f98;
+  --accent:#60a5fa;
+  --accent2:#8b5cf6;
+  --cyan:#22d3ee;
+  --green:#34d399;
+  --amber:#fbbf24;
+  --red:#fb7185;
+  --shadow:0 24px 70px rgba(0,0,0,.28);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  background:
+    radial-gradient(900px 520px at 78% -12%,rgba(96,165,250,.16),transparent 64%),
+    radial-gradient(700px 520px at 6% 8%,rgba(139,92,246,.14),transparent 66%),
+    linear-gradient(180deg,#081321 0%,#06101c 100%);
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+  background-size:40px 40px;
+  mask-image:linear-gradient(to bottom,black,transparent 78%);
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.shell{display:grid;grid-template-columns:282px 1fr;min-height:100vh}
+.side{
+  border-right:1px solid var(--line);
+  background:rgba(5,12,23,.78);
+  backdrop-filter:blur(20px);
+  padding:22px 16px;
+  position:sticky;top:0;height:100vh;display:flex;flex-direction:column;
+}
+.brand{display:flex;align-items:center;gap:11px;padding:8px 8px 18px}
+.logo{
+  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--cyan),var(--accent2));color:#05101d;font-weight:950;
+  box-shadow:0 10px 28px rgba(96,165,250,.24);letter-spacing:-.03em;font-size:14px;
+}
+.brand-name{font-weight:850;font-size:17px;letter-spacing:-.02em}
+.tag{font-size:11px;color:var(--muted2);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+.user-chip{
+  margin:4px 6px 18px;padding:11px 12px;border:1px solid var(--line);background:var(--panel-soft);
+  border-radius:14px;display:flex;align-items:center;gap:10px;min-width:0;
+}
+.user-avatar{width:31px;height:31px;border-radius:10px;background:rgba(96,165,250,.14);border:1px solid rgba(96,165,250,.22);display:grid;place-items:center;color:#cfe4ff;font-weight:800;flex:none}
+.user-email{font-size:12px;color:#bcc8da;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{display:grid;gap:5px}
+.nav button{
+  appearance:none;border:1px solid transparent;background:transparent;color:#8fa0b8;text-align:left;
+  padding:12px 13px;border-radius:13px;font-weight:650;display:flex;align-items:center;gap:10px;transition:.18s ease;
+}
+.nav button:before{content:attr(data-icon);width:22px;text-align:center;font-size:15px;opacity:.82}
+.nav button:hover{background:rgba(255,255,255,.04);color:#edf4ff;border-color:rgba(255,255,255,.05)}
+.nav button.active{
+  color:#f8fbff;
+  background:linear-gradient(90deg,rgba(96,165,250,.16),rgba(139,92,246,.11));
+  border-color:rgba(96,165,250,.20);
+  box-shadow:inset 3px 0 0 var(--accent);
+}
+.nav button.active:before{opacity:1}
+.side-footer{margin-top:auto;padding:14px 6px 4px}
+.sync-state{display:flex;align-items:center;gap:7px;color:var(--muted2);font-size:11px;margin:0 4px 10px}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(52,211,153,.09)}
+.main{padding:24px 28px 42px;max-width:1480px;width:100%;margin:auto}
+.topbar{display:flex;justify-content:space-between;gap:18px;align-items:flex-end;margin:0 0 22px;padding:4px 2px}
+.breadcrumb{font-size:11px;color:var(--muted2);text-transform:uppercase;letter-spacing:.14em;margin-bottom:7px}
+.page-title{font-size:31px;line-height:1;font-weight:880;letter-spacing:-.03em}
+.page-sub{margin-top:7px;font-size:13px;color:var(--muted)}
+.pill{
+  border:1px solid var(--line);background:rgba(255,255,255,.035);padding:9px 12px;border-radius:999px;
+  font-size:12px;color:#b9c8dc;white-space:nowrap;box-shadow:0 8px 24px rgba(0,0,0,.12)
+}
+.pill:before{content:"◷";margin-right:6px;color:#9cc8ff}
+.grid{display:grid;gap:16px}.cards{grid-template-columns:repeat(4,minmax(0,1fr))}.two{grid-template-columns:1.18fr .82fr}.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{
+  background:linear-gradient(180deg,rgba(16,31,52,.9),rgba(9,20,35,.92));
+  border:1px solid var(--line);border-radius:var(--radius);padding:19px;
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.card:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(140deg,rgba(255,255,255,.03),transparent 26%);}
+.card>*{position:relative;z-index:1}
+.card h3{margin:0 0 8px;font-size:15px;letter-spacing:-.01em}.metric{font-size:32px;font-weight:900;letter-spacing:-.03em;margin-top:3px}.muted{color:var(--muted)}.small{font-size:12px;color:var(--muted)}
+.kpi-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)}
+.row{display:flex;gap:10px;align-items:center}.between{justify-content:space-between}
+.btn{
+  background:rgba(255,255,255,.04);color:#e8eff9;border:1px solid var(--line-strong);border-radius:12px;
+  padding:10px 13px;font-weight:700;transition:.16s ease;box-shadow:0 6px 18px rgba(0,0,0,.08)
+}
+.btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.065);border-color:rgba(148,163,184,.28)}
+.primary{background:linear-gradient(135deg,#67e8f9,#60a5fa 55%,#8b5cf6);color:#05101a;border:0;font-weight:850;box-shadow:0 12px 28px rgba(96,165,250,.2)}
+.primary:hover{filter:brightness(1.06);box-shadow:0 15px 34px rgba(96,165,250,.28)}
+.danger{background:rgba(251,113,133,.07);color:#ffb5c2;border-color:rgba(251,113,133,.18)}
+.input, textarea, select{
+  width:100%;background:rgba(5,14,26,.78);color:#eef5ff;border:1px solid rgba(148,163,184,.16);border-radius:12px;
+  padding:11px 12px;outline:none;transition:.16s ease;
+}
+.input:focus,textarea:focus,select:focus{border-color:rgba(96,165,250,.64);box-shadow:0 0 0 4px rgba(96,165,250,.10);background:#081526}
+textarea{min-height:108px;resize:vertical}.label{font-size:11px;color:#92a1b7;display:block;margin:0 0 7px;text-transform:uppercase;letter-spacing:.08em}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.form-grid.three-cols{grid-template-columns:repeat(3,minmax(0,1fr))}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}.table th{color:#8291a8;font-weight:700}
+.progress{height:8px;border-radius:999px;background:rgba(255,255,255,.05);overflow:hidden}.progress>div{height:100%;background:linear-gradient(90deg,var(--cyan),var(--accent2));border-radius:999px}
+.empty{padding:32px 22px;text-align:center;color:var(--muted);border:1px dashed rgba(148,163,184,.18);border-radius:14px;background:rgba(255,255,255,.015)}
+.list{display:grid;gap:9px}.item{padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.025)}
+.item b{font-size:12px}.item .muted{font-size:12px;margin-top:3px}
+.schedule-row{display:grid;grid-template-columns:88px 64px minmax(0,1fr) 76px auto;gap:9px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}.schedule-row:last-child{border-bottom:0}.schedule-row>div:nth-child(3){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.status{font-size:10px;border-radius:999px;padding:5px 8px;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.12);color:#abb8c9;text-align:center;text-transform:capitalize}.done{background:rgba(52,211,153,.09);border-color:rgba(52,211,153,.15);color:#98f1c9}.skipped{background:rgba(251,113,133,.09);border-color:rgba(251,113,133,.15);color:#ffb6c4}
+.coach{display:grid;grid-template-columns:244px 1fr;gap:14px;height:calc(100vh - 160px);min-height:600px}.threads{overflow:auto;padding-right:4px}.thread{padding:12px 13px;border:1px solid transparent;border-radius:13px;color:#9fafc2;margin-bottom:6px;cursor:pointer;transition:.16s ease}.thread:hover{background:rgba(255,255,255,.035);color:#eaf1fb}.thread.active{background:linear-gradient(90deg,rgba(96,165,250,.13),rgba(139,92,246,.08));border-color:rgba(96,165,250,.2);color:#fff}.messages{display:flex;flex-direction:column;background:rgba(6,17,30,.84);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}.message-list{padding:20px;overflow:auto;display:flex;flex-direction:column;gap:13px;flex:1}.msg{max-width:82%;padding:13px 15px;border-radius:15px;line-height:1.55;white-space:pre-wrap;font-size:13px}.msg.user{align-self:flex-end;background:linear-gradient(135deg,rgba(59,130,246,.2),rgba(139,92,246,.18));border:1px solid rgba(96,165,250,.2)}.msg.assistant{align-self:flex-start;background:rgba(255,255,255,.035);border:1px solid rgba(148,163,184,.12)}.composer{border-top:1px solid var(--line);padding:13px;display:grid;grid-template-columns:1fr auto;gap:10px;background:rgba(255,255,255,.02)}.attach{display:flex;gap:7px;flex-wrap:wrap;padding:0 13px 13px}.filechip{font-size:11px;border:1px solid rgba(148,163,184,.16);background:rgba(255,255,255,.03);border-radius:999px;padding:6px 9px}
+.setup{width:min(820px,calc(100vw - 32px));margin:8vh auto;padding:34px;box-shadow:0 30px 100px rgba(0,0,0,.35)}.setup:before{content:"";position:absolute;left:-100px;top:-120px;width:320px;height:320px;border-radius:50%;background:rgba(96,165,250,.12);filter:blur(20px)}.hero{font-size:43px;line-height:1.02;margin:0 0 11px;letter-spacing:-.04em}.accent{background:linear-gradient(90deg,#67e8f9,#60a5fa 55%,#b388ff);-webkit-background-clip:text;background-clip:text;color:transparent}.notice{border:1px solid rgba(96,165,250,.16);background:rgba(96,165,250,.055);padding:13px;border-radius:13px;color:#c9d8eb;font-size:12px}.error{color:#ffabb8}.success{color:#90efc0}.modal{position:fixed;inset:0;background:rgba(1,5,10,.72);backdrop-filter:blur(8px);display:grid;place-items:center;padding:20px;z-index:10}.modal-box{width:min(760px,100%);max-height:90vh;overflow:auto;background:#0b172a;border:1px solid var(--line-strong);border-radius:18px;padding:21px;box-shadow:0 35px 100px rgba(0,0,0,.42)}.footer-note{font-size:11px;color:#687991}
+.coach-hero{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;margin-bottom:14px}
+.coach-identity{display:flex;gap:13px;align-items:center}
+.coach-orb{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#8b5cf6,#2563eb 55%,#0ea5e9);box-shadow:0 14px 38px rgba(37,99,235,.25);font-size:20px}
+.coach-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#7f91ab}
+.coach-name{font-size:18px;font-weight:850;margin-top:2px}
+.coach-state{font-size:12px;color:#9eadc1;margin-top:3px}
+.coach-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.quick-prompts{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 12px}
+.quick{padding:8px 10px;border-radius:999px;border:1px solid rgba(148,163,184,.15);background:rgba(255,255,255,.025);color:#aebcd0;font-size:11px;font-weight:700}
+.quick:hover{background:rgba(96,165,250,.08);color:#eaf4ff;border-color:rgba(96,165,250,.22)}
+.coach-context{margin:0 0 12px;padding:11px 13px;border:1px solid rgba(139,92,246,.16);background:linear-gradient(90deg,rgba(96,165,250,.055),rgba(139,92,246,.045));border-radius:13px;color:#b9c8db;font-size:11px;line-height:1.55}
+.coach-context b{color:#eaf3ff}
+.msg-meta{font-size:10px;color:#71829a;margin-bottom:5px}
+.coach-send-note{font-size:10px;color:#6f7f98;padding:0 3px}
+@media(max-width:820px){.coach-hero{grid-template-columns:1fr}.coach-actions{justify-content:flex-start}}
+#view-dashboard .cards .card:nth-child(1){background:linear-gradient(135deg,rgba(21,58,87,.9),rgba(11,28,46,.94))}
+#view-dashboard .cards .card:nth-child(2){background:linear-gradient(135deg,rgba(28,43,74,.9),rgba(12,25,44,.94))}
+#view-dashboard .cards .card:nth-child(3){background:linear-gradient(135deg,rgba(48,34,76,.88),rgba(12,23,42,.94))}
+#view-dashboard .cards .card:nth-child(4){background:linear-gradient(135deg,rgba(20,60,50,.88),rgba(11,27,38,.94))}
+#view-dashboard .cards .card:before{content:"";position:absolute;right:-24px;top:-38px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.06);filter:blur(1px)}
+.memory-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.memory-kpi{padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}.memory-kpi .v{font-size:24px;font-weight:850;letter-spacing:-.03em}.memory-kpi .l{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted2);margin-top:3px}.memory-note{padding:13px 14px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.025)}.memory-note .type{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#88bff6}.memory-note .text{margin-top:5px;line-height:1.45;font-size:13px}.memory-history{max-height:480px;overflow:auto}.memory-table{width:100%;border-collapse:collapse}.memory-table th,.memory-table td{padding:9px 8px;border-bottom:1px solid var(--line);font-size:11px;text-align:left}.memory-table th{color:#8191a7;position:sticky;top:0;background:#0c182a}.free-guard{margin-top:10px;border:1px solid rgba(52,211,153,.18);background:rgba(52,211,153,.055);color:#bcefd7;padding:10px 12px;border-radius:12px;font-size:11px;line-height:1.45}
+@media(max-width:1120px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.shell{grid-template-columns:230px 1fr}.main{padding:22px}.coach{grid-template-columns:210px 1fr}}
+@media(max-width:820px){.shell{grid-template-columns:1fr}.side{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line);padding-bottom:13px}.side-footer{padding-bottom:0}.sync-state{display:none}.nav{grid-template-columns:repeat(6,minmax(0,1fr))}.nav button{justify-content:center;text-align:center;padding:10px 7px}.nav button:before{width:auto}.nav button span{display:none}.user-chip{display:none}.brand{padding-bottom:13px}.main{padding:18px}.coach{height:auto;min-height:0;grid-template-columns:1fr}.threads{max-height:220px;display:flex;gap:7px;overflow:auto}.thread{min-width:180px;margin:0}.form-grid,.form-grid.three-cols{grid-template-columns:1fr}.page-title{font-size:27px}}
+@media(max-width:600px){.cards{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}.setup{margin:4vh auto;padding:24px}.hero{font-size:34px}.schedule-row{grid-template-columns:64px 52px minmax(0,1fr)}.schedule-row .hide-sm{display:none}.nav button{font-size:0}.nav button:before{font-size:17px}.coach{grid-template-columns:1fr}.msg{max-width:92%}}
+
 </style>
 </head>
 <body>
 <div id="setupView" class="setup card hidden">
-  <div class="tag">ONE-TIME SETUP · NO CODE REQUIRED AFTER THIS</div>
-  <h1 class="hero">Your personal <span class="accent">JEE Coach</span>.</h1>
-  <p class="muted">This easier version does not need npm, .env files, or a Google Cloud project. You connect your own Supabase project once, then use your own AI provider key.</p>
+  <div class="tag">ONE-TIME SETUP · SECURE CLOUD CONNECTION</div>
+  <h1 class="hero">Build a calmer, smarter <span class="accent">JEE routine</span>.</h1>
+  <p class="muted">One place for your study history, schedule, AI coaching, revision and wellbeing. Connect your own Supabase project once, then bring your preferred AI provider.</p>
   <div class="notice" style="margin:18px 0">Your study data is stored in your Supabase account. Your AI key is kept in this browser and is <b>not</b> saved to the JEE Coach cloud database.</div>
   <div class="form-grid">
     <div><label class="label">Supabase Project URL</label><input id="setupUrl" class="input" placeholder="https://xxxx.supabase.co"></div>
@@ -27,9 +172,9 @@
   <div class="footer-note">The SQL creates the profile, progress, schedule, chat, and private upload storage with per-user security policies.</div>
 </div>
 <div id="authView" class="setup card hidden">
-  <div class="tag">SECURE LOGIN · YOUR DATA FOLLOWS YOUR EMAIL</div>
-  <h1 class="hero">Welcome back to <span class="accent">JEE Coach</span>.</h1>
-  <p class="muted">Use your email and password. This is enough to remember your progress on different devices.</p>
+  <div class="tag">WELCOME BACK · YOUR PROGRESS FOLLOWS YOUR ACCOUNT</div>
+  <h1 class="hero">Good to see you again, <span class="accent">future you</span>.</h1>
+  <p class="muted">Log in to continue with your cloud-saved progress, planner, coaching chats and study history.</p>
   <div class="form-grid" style="margin-top:18px">
     <div><label class="label">Email</label><input id="authEmail" class="input" type="email" placeholder="you@gmail.com"></div>
     <div><label class="label">Password</label><input id="authPassword" class="input" type="password" placeholder="At least 6 characters"></div>
@@ -41,23 +186,25 @@
 <div id="appView" class="hidden">
 <div class="shell">
 <aside class="side">
-  <div class="brand"><div class="logo">J</div><div>JEE Coach<div class="tag">AI study command center</div></div></div>
-  <div id="userEmail" class="small" style="margin-bottom:12px"></div>
+  <div class="brand"><div class="logo">JC</div><div><div class="brand-name">JEE Coach</div><div class="tag">Personal study command center</div></div></div>
+  <div class="user-chip"><div class="user-avatar">J</div><div id="userEmail" class="user-email"></div></div>
   <nav class="nav">
-    <button data-view="dashboard" class="active">Dashboard</button>
-    <button data-view="daily">Daily log</button>
-    <button data-view="planner">Planner</button>
-    <button data-view="coach">Coach</button>
-    <button data-view="settings">Settings</button>
+    <button data-view="dashboard" data-icon="⌂" class="active"><span>Overview</span></button>
+    <button data-view="daily" data-icon="✓"><span>Today</span></button>
+    <button data-view="planner" data-icon="◫"><span>Plan</span></button>
+    <button data-view="coach" data-icon="✦"><span>AI Coach</span></button>
+    <button data-view="memory" data-icon="◉"><span>Memory</span></button>
+    <button data-view="settings" data-icon="⚙"><span>Settings</span></button>
   </nav>
-  <div class="side-footer"><button class="btn danger" id="logoutBtn" style="width:100%">Log out</button></div>
+  <div class="side-footer"><div class="sync-state"><span class="sync-dot"></span><span>Cloud sync enabled</span></div><button class="btn danger" id="logoutBtn" style="width:100%">Log out</button></div>
 </aside>
 <main class="main">
-  <div class="topbar"><div><div class="page-title" id="pageTitle">Dashboard</div><div id="pageSub" class="muted">Your real cloud-saved preparation, not dummy numbers.</div></div><div id="todayPill" class="pill"></div></div>
+  <div class="topbar"><div><div class="breadcrumb">JEE COACH / PERSONAL COMMAND CENTER</div><div class="page-title" id="pageTitle">Dashboard</div><div id="pageSub" class="page-sub">Your real cloud-saved preparation, not dummy numbers.</div></div><div id="todayPill" class="pill"></div></div>
   <section id="view-dashboard" class="view"></section>
   <section id="view-daily" class="view hidden"></section>
   <section id="view-planner" class="view hidden"></section>
   <section id="view-coach" class="view hidden"></section>
+  <section id="view-memory" class="view hidden"></section>
   <section id="view-settings" class="view hidden"></section>
 </main></div></div>
 
@@ -86,7 +233,7 @@ async function startApp(){showOnly('appView'); $('userEmail').textContent=sessio
 async function ensureProfile(){
   let {data,error}=await supa.from('profiles').select('*').eq('id',session.user.id).maybeSingle();
   if(error) throw error;
-  if(!data){const payload={id:session.user.id,email:session.user.email,full_name:session.user.user_metadata?.full_name||session.user.user_metadata?.name||'',target_exam:'JEE Main + Advanced',daily_minutes:360,preferred_start_time:'07:00',study_days:[1,2,3,4,5,6],subject_priorities:[{subject:'Physics',priority:3},{subject:'Chemistry',priority:3},{subject:'Mathematics',priority:3}]}; const r=await supa.from('profiles').insert(payload).select().single(); if(r.error) throw r.error; data=r.data}
+  if(!data){const payload={id:session.user.id,email:session.user.email,full_name:session.user.user_metadata?.full_name||session.user.user_metadata?.name||'',target_exam:'JEE Main + Advanced',daily_minutes:360,preferred_start_time:'07:00',study_days:[1,2,3,4,5,6],subject_priorities:[{subject:'Physics',priority:3},{subject:'Chemistry',priority:3},{subject:'Mathematics',priority:3}],about_me:'',current_situation:'',current_challenges:'',non_study_commitments:'',coach_style:'warm, calm, direct and practical'}; const r=await supa.from('profiles').insert(payload).select().single(); if(r.error) throw r.error; data=r.data}
   profile=data;
 }
 async function loadThreads(){const r=await supa.from('coach_threads').select('*').order('updated_at',{ascending:false}); if(r.error){console.error(r.error);threads=[]}else threads=r.data||[]; if(!activeThread&&threads[0]) activeThread=threads[0].id; if(!activeThread){const r=await supa.from('coach_threads').insert({user_id:session.user.id,title:'My JEE Coach'}).select().single(); if(!r.error){threads=[r.data];activeThread=r.data.id}} if(activeThread) await loadMessages()}
@@ -95,8 +242,8 @@ async function renderCurrent(){const active=document.querySelector('.nav button.
 async function render(view){
   document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
   document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!=='view-'+view));
-  const titles={dashboard:['Dashboard','Your real cloud-saved preparation, not dummy numbers.'],daily:['Daily log','Log what actually happened today.'],planner:['Planner','Turn available time into sessions you can edit without losing history.'],coach:['Coach','Persistent AI chats using your own model and key.'],settings:['Settings','Cloud identity, study targets, and AI provider.']}; $('pageTitle').textContent=titles[view][0]; $('pageSub').textContent=titles[view][1];
-  if(view==='dashboard') return dashboard(); if(view==='daily') return daily(); if(view==='planner') return planner(); if(view==='coach') return coach(); if(view==='settings') return settings();
+  const titles={dashboard:['Dashboard','Your real cloud-saved preparation, not dummy numbers.'],daily:['Daily log','Log what actually happened today.'],planner:['Planner','Turn available time into sessions you can edit without losing history.'],coach:['Coach','Persistent AI chats using your own model and key.'],memory:['Long-term memory','A multi-month view of your JEE journey and the patterns your coach remembers.'],settings:['Settings','Cloud identity, study targets, and AI provider.']}; $('pageTitle').textContent=titles[view][0]; $('pageSub').textContent=titles[view][1];
+  if(view==='dashboard') return dashboard(); if(view==='daily') return daily(); if(view==='planner') return planner(); if(view==='coach') return coach(); if(view==='memory') return memory(); if(view==='settings') return settings();
 }
 async function getLogs(limit=30){const r=await supa.from('daily_logs').select('*').order('log_date',{ascending:false}).limit(limit);return r.data||[]}
 async function dashboard(){const logs=await getLogs(30); const sched=await supa.from('schedule_blocks').select('*').gte('block_date',today()).order('block_date').order('start_time').limit(20); const future=sched.data||[]; const thisWeek=logs.slice(0,7); const q=thisWeek.reduce((s,x)=>s+(x.correct_questions||0),0), pq=thisWeek.reduce((s,x)=>s+(x.practice_questions||0),0), rev=thisWeek.reduce((s,x)=>s+(x.revision_minutes||0),0), lec=thisWeek.reduce((s,x)=>s+(x.lecture_minutes||0),0); const adherence=future.length?Math.round(future.filter(x=>x.status==='done').length/future.length*100):0;
@@ -115,27 +262,188 @@ function editBlock(x){openAddBlock(x)}
 async function saveBlock(id){const p={user_id:session.user.id,block_date:$('b_date').value,start_time:$('b_start').value+':00',end_time:$('b_end').value+':00',subject:$('b_subject').value,kind:$('b_kind').value,topic:$('b_topic').value,source:'manual',status:'planned',notes:''};let r=id?await supa.from('schedule_blocks').update(p).eq('id',id):await supa.from('schedule_blocks').insert(p);if(r.error)alert(r.error.message);else{closeModal();await render('planner')}}
 async function deleteBlock(id){const r=await supa.from('schedule_blocks').delete().eq('id',id);if(r.error)alert(r.error.message);else{closeModal();await render('planner')}}
 async function coach(){
-  if(!threads.length){await loadThreads()} const ai=getAI()||{};
-  $('view-coach').innerHTML=`<div class="coach"><div class="card threads"><div class="row between"><h3>Chats</h3><button class="btn" onclick="newThread()">+ New</button></div>${threads.map(t=>`<div class="thread ${t.id===activeThread?'active':''}" onclick="switchThread('${t.id}')">${esc(t.title)}</div>`).join('')}</div><div class="messages"><div class="message-list" id="messageList">${messages.map(m=>`<div class="msg ${m.role==='user'?'user':'assistant'}">${esc(m.content)}</div>`).join('')||'<div class="empty">Start by sharing what is going on with your JEE prep. The coach uses your saved profile, recent logs, schedule, and this chat history.</div>'}</div><div class="attach">${pendingFiles.map((f,i)=>`<div class="filechip">📎 ${esc(f.name)} <button style="background:none;color:#9fb0c8" onclick="removePending(${i})">×</button></div>`).join('')}</div><div class="composer"><textarea id="coachInput" placeholder="Example: I missed physics practice for 3 days. Adjust my next week and tell me what to do today."></textarea><div class="row" style="align-items:flex-end"><label class="btn">Attach<input id="fileInput" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.webp,.txt,.csv,.md,.json,.doc,.docx" style="display:none"></label><button id="sendBtn" class="btn primary" onclick="sendCoach()">Send</button></div></div></div></div>`;
-  $('fileInput').addEventListener('change',e=>{pendingFiles=[...pendingFiles,...e.target.files];coach()})
+  if(!threads.length){await loadThreads()}
+  const ai=aiConfig();
+  const insight=await buildCoachInsights();
+  const name=profile.full_name||'there';
+  const tone=profile.coach_style||'warm, calm, direct and practical';
+  $('view-coach').innerHTML=`<div class="coach-hero"><div class="coach-identity"><div class="coach-orb">✦</div><div><div class="coach-kicker">Personal JEE companion</div><div class="coach-name">Your coach · ${esc(name)}</div><div class="coach-state">${esc(insight.oneLine)}</div></div></div><div class="coach-actions"><button class="btn" onclick="render('daily')">Log today</button><button class="btn" onclick="coachWeeklyReview()">Review my week</button></div></div><div class="coach-context"><b>What I’m keeping in mind:</b> ${esc(insight.contextLine)} <span class="small"> · Coach style: ${esc(tone)}</span></div><div class="quick-prompts"><button class="quick" onclick="quickCoach('I feel overwhelmed right now. Help me figure out what actually matters today.')">I'm overwhelmed</button><button class="quick" onclick="quickCoach('I am struggling to start studying. Help me understand why and give me the smallest useful next step.')">I can't start</button><button class="quick" onclick="quickCoach('Look at my recent study pattern and tell me what you notice that I may be missing.')">Notice my pattern</button><button class="quick" onclick="quickCoach('Help me choose what to do for the next 2 hours based on my current situation.')">Next 2 hours</button></div><div class="coach"><div class="card threads"><div class="row between"><h3>Chats</h3><button class="btn" onclick="newThread()">+ New</button></div>${threads.map(t=>`<div class="thread ${t.id===activeThread?'active':''}" onclick="switchThread('${t.id}')">${esc(t.title)}</div>`).join('')}</div><div class="messages"><div class="message-list" id="messageList">${messages.map(m=>`<div><div class="msg-meta">${m.role==='user'?'You':'Your coach'}</div><div class="msg ${m.role==='user'?'user':'assistant'}">${esc(m.content)}</div></div>`).join('')||'<div class="empty">You can talk to the coach about study, motivation, pressure, routine, confidence, setbacks, or what is happening outside studies that is affecting preparation.</div>'}</div><div class="attach">${pendingFiles.map((f,i)=>`<div class="filechip">📎 ${esc(f.name)} <button style="background:none;color:#9fb0c8" onclick="removePending(${i})">×</button></div>`).join('')}</div><div class="composer"><textarea id="coachInput" placeholder="Tell me what is really going on — you do not need to phrase it perfectly."></textarea><div class="row" style="align-items:flex-end"><label class="btn">Attach<input id="fileInput" type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.webp,.txt,.csv,.md,.json,.doc,.docx" style="display:none"></label><button id="sendBtn" class="btn primary" onclick="sendCoach()">Send</button></div></div><div class="coach-send-note">Your coach uses your saved profile, multi-month history summaries, durable memories, schedule, and cross-chat conversation history. It should not pretend to know things you have not shared.</div></div></div>`;
+  $('fileInput').addEventListener('change',e=>{pendingFiles=[...pendingFiles,...e.target.files];coach()});
   const ml=$('messageList'); if(ml) ml.scrollTop=ml.scrollHeight;
 }
 async function newThread(){const r=await supa.from('coach_threads').insert({user_id:session.user.id,title:'New coaching chat'}).select().single();if(r.error)alert(r.error.message);else{threads.unshift(r.data);activeThread=r.data.id;messages=[];await render('coach')}}
 async function switchThread(id){activeThread=id;pendingFiles=[];await loadMessages();await render('coach')}
 function removePending(i){pendingFiles.splice(i,1);coach()}
-function aiConfig(){const a=getAI()||{};return {provider:a.provider||'openrouter',endpoint:a.endpoint||'https://openrouter.ai/api/v1/chat/completions',model:a.model||'openai/gpt-5.4-mini',key:a.key||''}}
+function avg(nums){const a=nums.filter(x=>Number.isFinite(x));return a.length?a.reduce((s,x)=>s+x,0)/a.length:null}
+function trend(values){if(values.length<4)return 'not enough data'; const a=values.slice(0,Math.ceil(values.length/2)), b=values.slice(Math.ceil(values.length/2)); const x=avg(a), y=avg(b); if(x==null||y==null)return 'not enough data'; const d=x-y; return Math.abs(d)<.25?'roughly stable':d>0?'improving':'slipping'}
+async function buildCoachInsights(){
+  const logs=await getLogs(30);
+  const sch=await supa.from('schedule_blocks').select('*').gte('block_date',new Date(Date.now()-29*86400000).toISOString().slice(0,10)).order('block_date',{ascending:false}).limit(90);
+  const rows=sch.data||[];
+  const recent=logs.slice(0,7), older=logs.slice(7,21);
+  const studyMins=x=>((x.lecture_minutes||0)+(x.revision_minutes||0)+((x.practice_questions||0)*0));
+  const recentStudy=recent.reduce((s,x)=>s+studyMins(x),0);
+  const olderStudy=older.reduce((s,x)=>s+studyMins(x),0);
+  const stress=recent.map(x=>+x.stress).filter(Boolean), energy=recent.map(x=>+x.energy).filter(Boolean), wellbeing=recent.map(x=>+x.wellbeing).filter(Boolean);
+  const planned=rows.filter(x=>x.block_date<=today());
+  const done=planned.filter(x=>x.status==='done').length, skipped=planned.filter(x=>x.status==='skipped').length;
+  const current=logs[0];
+  const context=[];
+  if(profile.target_exam) context.push(`${profile.target_exam}${profile.target_date?' by '+profile.target_date:''}`);
+  if(profile.daily_minutes) context.push(`${Math.round(profile.daily_minutes/60*10)/10}h planned/day`);
+  if(stress.length) context.push(`recent stress ${Math.round(avg(stress)*10)/10}/5`);
+  if(energy.length) context.push(`energy ${Math.round(avg(energy)*10)/10}/5`);
+  if(done+skipped) context.push(`${done}/${done+skipped} recent scheduled sessions completed`);
+  const oneLine=stress.length&&avg(stress)>=4?'Your recent check-ins suggest a high-pressure stretch.':current?.blockers?'I’m paying attention to the blocker you logged today.':'I’m looking for patterns, not judging individual days.';
+  const notes=[];
+  if(stress.length>=3&&trend(stress)==='improving')notes.push('stress has been easing');
+  if(stress.length>=3&&trend(stress)==='slipping')notes.push('stress has been rising');
+  if(energy.length>=3&&trend(energy)==='slipping')notes.push('energy has been falling');
+  if(logs.length>=5){const active=logs.filter(x=>(x.lecture_minutes||0)+(x.revision_minutes||0)+(x.practice_questions||0)>0).length; if(active/logs.length<.65)notes.push('study activity has been inconsistent'); else notes.push('you have been showing up fairly consistently');}
+  if(recentStudy && olderStudy && recentStudy<olderStudy*.75)notes.push('logged study minutes are down recently');
+  if(current?.blockers)notes.push('today has a stated blocker');
+  return {oneLine,contextLine:notes.join(' · ')||'I’ll use your recent data and what you tell me now.'};
+}
+function quickCoach(text){const el=$('coachInput');if(el){el.value=text;el.focus()}}
+async function coachWeeklyReview(){await render('coach'); quickCoach('Review my last 7 days as a coach. Tell me what changed, what seems to be working, what may be quietly hurting my preparation, and the 2 most useful adjustments for the next 7 days. Please consider both study data and wellbeing.');}
+function aiConfig(){const a=getAI()||{};return {provider:a.provider||'openrouter',endpoint:a.endpoint||'https://openrouter.ai/api/v1/chat/completions',model:a.model||'qwen/qwen3-235b-a22b-2507:free',key:a.key||''}}
+async function ensureFreeOpenRouterModel(ai){
+  if(ai.model==='openrouter/free') return {ok:true};
+  if(!String(ai.model||'').endsWith(':free')) return {ok:false,message:'Free-only protection blocked this request. For OpenRouter, this app will only send models explicitly marked :free (or openrouter/free), so it cannot accidentally use a paid model.'};
+  try{
+    const r=await fetch('https://openrouter.ai/api/v1/models',{cache:'no-store'});
+    if(!r.ok) return {ok:false,message:'I could not verify that the OpenRouter model is still free. To protect you from charges, the request was blocked. Try again later.'};
+    const data=await r.json(); const model=(data.data||[]).find(x=>x.id===ai.model);
+    if(!model) return {ok:false,message:`The model ${ai.model} is no longer listed by OpenRouter. Free-only protection blocked the request so you will not accidentally pay. Choose another :free model.`};
+    const p=Number(model.pricing?.prompt??NaN), c=Number(model.pricing?.completion??NaN);
+    if(!(p===0&&c===0)) return {ok:false,message:`Free-only protection detected that ${ai.model} is no longer $0. The request was blocked, so the app will not knowingly send a paid request.`};
+    return {ok:true};
+  }catch(e){return {ok:false,message:'Could not verify OpenRouter pricing, so the app blocked the request rather than risk a paid call.'};}
+}
 async function fileToDataURL(file){return await new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(file)})}
 async function uploadFile(file){const path=`${session.user.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;const u=await supa.storage.from('coach-files').upload(path,file);if(u.error)throw u.error;const r=await supa.from('coach_attachments').insert({user_id:session.user.id,thread_id:activeThread,storage_path:path,file_name:file.name,mime_type:file.type||'application/octet-stream',size_bytes:file.size}).select().single();if(r.error)throw r.error;return {path,name:file.name,type:file.type,size:file.size}}
-async function buildContext(){const [logs,sched]=await Promise.all([supa.from('daily_logs').select('*').order('log_date',{ascending:false}).limit(14),supa.from('schedule_blocks').select('*').gte('block_date',today()).order('block_date').limit(30)]);return `STUDENT PROFILE:\n${JSON.stringify(profile)}\n\nRECENT DAILY LOGS:\n${JSON.stringify(logs.data||[])}\n\nUPCOMING SCHEDULE:\n${JSON.stringify(sched.data||[])}`}
-async function sendCoach(){const text=$('coachInput').value.trim();if(!text&&!pendingFiles.length)return;const ai=aiConfig();if(!ai.key){alert('Open Settings and add your own AI API key first.');return} $('sendBtn').disabled=true; try{const fileInfos=[]; for(const f of pendingFiles)fileInfos.push(await uploadFile(f)); const contentParts=[{type:'text',text:text||'Please analyze these study files and tell me what matters for my JEE preparation.'}]; for(const f of pendingFiles){if(f.type.startsWith('image/'))contentParts.push({type:'image_url',image_url:{url:await fileToDataURL(f)}}); else if(f.type==='application/pdf' && ai.provider==='openrouter')contentParts.push({type:'file',file:{filename:f.name,file_data:await fileToDataURL(f)}}); else if(/^(text|csv|json|markdown)/i.test(f.type)||/\.(txt|csv|md|json)$/i.test(f.name))contentParts.push({type:'text',text:`\nAttached file ${f.name}:\n${await readText(f)}`})}
- const context=await buildContext(); const sys=`You are the user's long-term JEE preparation coach. Be concrete, calm, practical, and personalized. Use the real data below. Help with lecture strategy, practice, revision, backlog recovery, mock analysis, schedule adjustment, and stress management. Do not invent marks or progress. When stress is high, reduce overload and suggest sustainable next steps. Never diagnose mental health conditions.\n\n${context}`;
- const prior=messages.slice(-20).map(m=>({role:m.role,content:m.content})); const body={model:ai.model,messages:[{role:'system',content:sys},...prior,{role:'user',content:contentParts.length===1?text:contentParts}],temperature:.4,max_tokens:1200}; const headers={'Content-Type':'application/json','Authorization':'Bearer '+ai.key}; if(ai.provider==='openrouter'){headers['HTTP-Referer']=location.origin;headers['X-OpenRouter-Title']='JEE Coach'} const resp=await fetch(ai.endpoint,{method:'POST',headers,body:JSON.stringify(body)}); const raw=await resp.text(); if(!resp.ok)throw new Error(raw.slice(0,800)); let data;try{data=JSON.parse(raw)}catch{throw new Error('The AI provider returned a non-JSON response.')}; const answer=data.choices?.[0]?.message?.content||data.output_text||'No response text returned.'; await supa.from('coach_messages').insert([{thread_id:activeThread,user_id:session.user.id,role:'user',content:text||'[Files attached]'}, {thread_id:activeThread,user_id:session.user.id,role:'assistant',content:answer}]); messages.push({role:'user',content:text||'[Files attached]'},{role:'assistant',content:answer}); pendingFiles=[]; await supa.from('coach_threads').update({title:(threads.find(t=>t.id===activeThread)?.title==='New coaching chat'?(text||'Study coaching') .slice(0,40):threads.find(t=>t.id===activeThread)?.title||'Chat')}).eq('id',activeThread); await loadThreads(); await render('coach');}catch(e){alert('Coach error: '+e.message)}finally{$('sendBtn').disabled=false}}
+async function buildContext(){
+  const [memR,threadR]=await Promise.all([
+    supa.rpc('get_coach_long_memory'),
+    supa.from('coach_messages').select('role,content,created_at').order('created_at',{ascending:false}).limit(140)
+  ]);
+  const longMemory=memR.error?null:memR.data;
+  if(!longMemory){
+    // Backward-compatible fallback until long_term_memory_upgrade.sql is run.
+    const [logsR,schedR]=await Promise.all([
+      supa.from('daily_logs').select('*').order('log_date',{ascending:false}).limit(90),
+      supa.from('schedule_blocks').select('*').gte('block_date',new Date(Date.now()-89*86400000).toISOString().slice(0,10)).order('block_date',{ascending:false}).limit(160)
+    ]);
+    return `STUDENT PROFILE\n${JSON.stringify(profile)}\n\nFALLBACK RECENT LOGS\n${JSON.stringify(logsR.data||[])}\n\nFALLBACK SCHEDULE\n${JSON.stringify(schedR.data||[])}\n\nRECENT COACH MEMORY\n${JSON.stringify((threadR.data||[]).reverse())}`;
+  }
+  const history=(threadR.data||[]).reverse();
+  const week=longMemory.windows?.['28d']||{};
+  const prev=longMemory.windows?.['28d_previous']||{};
+  const ninety=longMemory.windows?.['90d']||{};
+  const ninetyPrev=longMemory.windows?.['90d_previous']||{};
+  const longSummary={
+    journey_start:longMemory.all_time?.first_log_date,
+    last_log_date:longMemory.all_time?.last_log_date,
+    all_time:longMemory.all_time,
+    last_28_days:week,
+    previous_28_days:prev,
+    last_90_days:ninety,
+    previous_90_days:ninetyPrev,
+    last_180_days:longMemory.windows?.['180d'],
+    last_365_days:longMemory.windows?.['365d'],
+    weekly_history:longMemory.weekly_history,
+    monthly_history:longMemory.monthly_history,
+    recent_blockers:longMemory.recent_blockers,
+    durable_memories:longMemory.memory_notes
+  };
+  return `LONG-TERM STUDENT PROFILE AND MEMORY\n${JSON.stringify(longMemory.profile)}\n\nLONGITUDINAL SUMMARY (this is the student's history, not just the last month)\n${JSON.stringify(longSummary)}\n\nRECENT COACH CONVERSATIONS\n${JSON.stringify(history.slice(-80))}`;
+}
+function parseCoachOutput(raw){
+  const m=String(raw||'').match(/<COACH_MEMORY>([\s\S]*?)<\/COACH_MEMORY>/i);
+  if(!m)return {answer:String(raw||'').trim(),memories:[]};
+  let memories=[]; try{memories=JSON.parse(m[1]);}catch{memories=[]}
+  if(!Array.isArray(memories))memories=[];
+  memories=memories.filter(x=>x&&x.content&&['fact','goal','preference','pattern','challenge','commitment','milestone'].includes(x.memory_type||x.type)).slice(0,3).map(x=>({memory_type:x.memory_type||x.type,content:String(x.content).trim().slice(0,700),importance:Math.min(5,Math.max(1,Number(x.importance)||3)),confidence:Math.min(1,Math.max(0,Number(x.confidence)||.8))}));
+  return {answer:String(raw||'').replace(m[0],'').trim(),memories};
+}
+async function saveDurableMemories(items,sourceMessageId){
+  if(!items.length)return;
+  const existingR=await supa.from('coach_memory_notes').select('id,memory_type,content,importance,confidence,active').eq('user_id',session.user.id).eq('active',true).limit(200);
+  const existing=existingR.data||[];
+  const norm=x=>String(x||'').toLowerCase().replace(/\s+/g,' ').replace(/[^a-z0-9 ]/g,'').trim();
+  for(const item of items){
+    const n=norm(item.content); if(!n)continue;
+    const dup=existing.find(e=>norm(e.content)===n);
+    if(dup){
+      await supa.from('coach_memory_notes').update({importance:Math.max(dup.importance||3,item.importance||3),confidence:Math.max(Number(dup.confidence||0),Number(item.confidence||0)),last_confirmed_at:new Date().toISOString()}).eq('id',dup.id);
+      continue;
+    }
+    const r=await supa.from('coach_memory_notes').insert({user_id:session.user.id,memory_type:item.memory_type,content:item.content,importance:item.importance,confidence:item.confidence,source_message_id:sourceMessageId||null});
+    if(!r.error)existing.push({content:item.content,importance:item.importance,confidence:item.confidence});
+  }
+}
+async function addMemoryManually(){
+  const textVal=$('mem_new')?.value.trim(); if(!textVal)return;
+  const type=$('mem_type')?.value||'fact'; const importance=+$('mem_importance')?.value||3;
+  const r=await supa.from('coach_memory_notes').insert({user_id:session.user.id,memory_type:type,content:textVal,importance,confidence:1,source_message_id:null});
+  if(r.error){alert(r.error.message);return} await memory();
+}
+async function deleteMemory(id){const r=await supa.from('coach_memory_notes').update({active:false}).eq('id',id); if(r.error)alert(r.error.message); else await memory();}
+async function memory(){
+  const r=await supa.rpc('get_coach_long_memory');
+  if(r.error){$('view-memory').innerHTML=`<div class="card"><h3>Long-term memory is not enabled yet</h3><p class="muted">Run <code>long_term_memory_upgrade.sql</code> once in Supabase SQL Editor. Your existing data is safe; this upgrade only adds memory storage and server-side history summaries.</p></div>`;return}
+  const m=r.data||{}, a=m.all_time||{}, w=m.windows||{}, recent=w['28d']||{}, prev=w['28d_previous']||{}, n90=w['90d']||{}, p90=w['90d_previous']||{};
+  const pct=(x)=>x==null?'—':`${Number(x).toFixed(1)}%`; const hours=x=>x==null?'—':`${(Number(x)/60).toFixed(1)}h`;
+  const change=(cur,old)=>{if(cur==null||old==null||old===0)return '—'; const d=((cur-old)/Math.abs(old))*100; return `${d>=0?'+':''}${d.toFixed(0)}%`};
+  const notes=m.memory_notes||[];
+  const months=(m.monthly_history||[]).slice(0,12);
+  $('view-memory').innerHTML=`<div class="card"><div class="row between"><div><h3>JEE journey so far</h3><div class="small">This memory is designed to follow you for months or years — not reset every 30 days.</div></div><div class="pill">First log: ${esc(a.first_log_date||'—')}</div></div><div class="memory-strip" style="margin-top:15px"><div class="memory-kpi"><div class="v">${a.logged_days||0}</div><div class="l">logged days</div></div><div class="memory-kpi"><div class="v">${hours(a.total_study_minutes)}</div><div class="l">logged study time</div></div><div class="memory-kpi"><div class="v">${a.total_practice_questions||0}</div><div class="l">practice questions</div></div><div class="memory-kpi"><div class="v">${pct(a.accuracy_percent)}</div><div class="l">all-time accuracy</div></div></div></div>
+  <div class="grid two" style="margin-top:14px"><div class="card"><h3>Recent vs previous 28 days</h3><table class="memory-table"><tr><th>Signal</th><th>Recent</th><th>Previous</th><th>Change</th></tr><tr><td>Study time</td><td>${hours(recent.study_minutes)}</td><td>${hours(prev.study_minutes)}</td><td>${change(recent.study_minutes,prev.study_minutes)}</td></tr><tr><td>Practice</td><td>${recent.practice_questions||0}</td><td>${prev.practice_questions||0}</td><td>${change(recent.practice_questions,prev.practice_questions)}</td></tr><tr><td>Accuracy</td><td>${pct(recent.accuracy_percent)}</td><td>${pct(prev.accuracy_percent)}</td><td>${change(recent.accuracy_percent,prev.accuracy_percent)}</td></tr><tr><td>Stress</td><td>${recent.avg_stress==null?'—':Number(recent.avg_stress).toFixed(1)}/5</td><td>${prev.avg_stress==null?'—':Number(prev.avg_stress).toFixed(1)}/5</td><td>${change(recent.avg_stress,prev.avg_stress)}</td></tr><tr><td>Energy</td><td>${recent.avg_energy==null?'—':Number(recent.avg_energy).toFixed(1)}/5</td><td>${prev.avg_energy==null?'—':Number(prev.avg_energy).toFixed(1)}/5</td><td>${change(recent.avg_energy,prev.avg_energy)}</td></tr></table></div><div class="card"><h3>Last 90 days</h3><div class="list"><div class="item"><b>Study time</b><div class="muted">${hours(n90.study_minutes)} · previous 90d ${hours(p90.study_minutes)}</div></div><div class="item"><b>Practice accuracy</b><div class="muted">${pct(n90.accuracy_percent)} · previous 90d ${pct(p90.accuracy_percent)}</div></div><div class="item"><b>Stress</b><div class="muted">${n90.avg_stress==null?'—':Number(n90.avg_stress).toFixed(1)}/5 · previous ${p90.avg_stress==null?'—':Number(p90.avg_stress).toFixed(1)}/5</div></div><div class="item"><b>Data continuity</b><div class="muted">${n90.logged_days||0} logged days across the last 90.</div></div></div></div></div>
+  <div class="card" style="margin-top:14px"><div class="row between"><div><h3>What the coach remembers</h3><div class="small">These are durable facts, goals, preferences and patterns. Old items are not automatically treated as current.</div></div></div><div class="form-grid" style="margin:14px 0"><div><label class="label">Memory type</label><select id="mem_type"><option value="fact">Fact</option><option value="goal">Goal</option><option value="preference">Preference</option><option value="pattern">Pattern</option><option value="challenge">Challenge</option><option value="commitment">Commitment</option><option value="milestone">Milestone</option></select></div><div><label class="label">Importance</label><select id="mem_importance"><option value="3">3 · Normal</option><option value="4">4 · Important</option><option value="5">5 · Critical</option></select></div><div style="grid-column:1/-1"><label class="label">Add something the coach should remember</label><input id="mem_new" class="input" placeholder="Example: I concentrate better before coaching in the morning."></div></div><div class="row"><button class="btn primary" onclick="addMemoryManually()">Save memory</button></div><div class="list" style="margin-top:14px">${notes.length?notes.map(x=>`<div class="memory-note"><div class="row between"><span class="type">${esc(x.type||'memory')} · importance ${x.importance||3}</span><button class="btn" onclick="deleteMemory('${x.id}')">Forget</button></div><div class="text">${esc(x.content)}</div><div class="small" style="margin-top:6px">Last confirmed ${esc(fmtDate(String(x.last_confirmed_at||'').slice(0,10)))}</div></div>`).join(''):'<div class="empty">No durable memories yet. After a few conversations, the coach can save stable things you share or patterns supported by your data.</div>'}</div></div>
+  <div class="card" style="margin-top:14px"><h3>Monthly history</h3><div class="memory-history"><table class="memory-table"><tr><th>Month</th><th>Study</th><th>Practice</th><th>Accuracy</th><th>Stress</th><th>Logged days</th></tr>${months.map(x=>`<tr><td>${esc(fmtDate(String(x.month_start||'').slice(0,10)))}</td><td>${hours(x.study_minutes)}</td><td>${x.practice_questions||0}</td><td>${pct(x.accuracy_percent)}</td><td>${x.avg_stress==null?'—':Number(x.avg_stress).toFixed(1)}/5</td><td>${x.logged_days||0}</td></tr>`).join('')}</table></div></div>`;
+}
+async function sendCoach(){
+  const text=$('coachInput').value.trim(); if(!text&&!pendingFiles.length)return;
+  const ai=aiConfig(); if(!ai.key){alert('Open Settings and add your own AI API key first.');return}
+  if(ai.provider==='openrouter'){const guard=await ensureFreeOpenRouterModel(ai); if(!guard.ok){alert(guard.message);return}}
+  $('sendBtn').disabled=true;
+  try{
+    const fileInfos=[]; for(const f of pendingFiles)fileInfos.push(await uploadFile(f));
+    const contentParts=[{type:'text',text:text||'Please help me understand what matters in these files for my JEE preparation.'}];
+    for(const f of pendingFiles){
+      if(f.type.startsWith('image/'))contentParts.push({type:'image_url',image_url:{url:await fileToDataURL(f)}});
+      else if(f.type==='application/pdf'&&ai.provider==='openrouter')contentParts.push({type:'file',file:{filename:f.name,file_data:await fileToDataURL(f)}});
+      else if(/^(text|csv|json|markdown)/i.test(f.type)||/\.(txt|csv|md|json)$/i.test(f.name))contentParts.push({type:'text',text:`\nAttached file ${f.name}:\n${await readText(f)}`});
+    }
+    const context=await buildContext();
+    const sys=`You are not a generic chatbot. You are a long-term human-like JEE preparation coach whose primary responsibility is to understand the student as a person and then help them prepare sustainably for JEE.\n\nCOACHING PRINCIPLES\n- Treat the student as a real person with changing energy, pressure, responsibilities, confidence and constraints.\n- Do not equate low output with laziness. Look for patterns and context before judging.\n- Separate a bad day from a multi-week pattern.\n- Use concrete evidence from the supplied data when you make observations; label uncertainty when evidence is thin.\n- Remember earlier conversations and avoid making the student repeat themselves.\n- Do not dump a giant plan when the student is overwhelmed. Prefer the smallest useful next step, then the next decision.\n- Ask at most one or two focused questions when information is genuinely missing; otherwise act on what is known.\n- Be warm without sounding fake, parental, preachy or excessively motivational. Do not use canned lines like “you got this” unless the moment genuinely calls for it.\n- Mirror the student's level of seriousness and language naturally.\n- When the student is frustrated, first show that you understood the situation, then reason about it, then suggest an action.\n- When the student is doing well, notice specifically what is working rather than giving generic praise.\n- Never invent marks, causes, diagnoses, personality traits, or life circumstances.\n- Never diagnose mental-health conditions. If there is a serious safety concern, encourage contacting a trusted person or appropriate professional support.\n- Do not make high-stakes medical claims.\n- Keep responses readable: usually 3-7 short paragraphs or a few bullets, not an essay.\n- For planning, respect the student's actual available time. Don't silently assume 8-10 productive hours.\n- For JEE, focus on consistency, retrieval, practice, revision, realistic sequencing and recovery from backlog. You may use general JEE preparation knowledge, but never pretend an exact syllabus fact is present if it isn't.\n\nCONVERSATION BEHAVIOR\n1. Briefly acknowledge what seems to be happening.\n2. State the key observation or interpretation, separating evidence from inference.\n3. Give the smallest useful next action.\n4. When appropriate, add what to do next if that action goes well or poorly.\n5. Do not ask a question merely to keep the conversation going.\n\n${context}`;
+    const prior=messages.slice(-40).map(m=>({role:m.role,content:m.content}));
+    const body={model:ai.model,messages:[{role:'system',content:sys},...prior,{role:'user',content:contentParts.length===1?text:contentParts}],temperature:.6,max_tokens:1600};
+    const headers={'Content-Type':'application/json','Authorization':'Bearer '+ai.key};
+    if(ai.provider==='openrouter'){headers['HTTP-Referer']=location.origin;headers['X-OpenRouter-Title']='JEE Coach';}
+    const resp=await fetch(ai.endpoint,{method:'POST',headers,body:JSON.stringify(body)}); const raw=await resp.text();
+    if(!resp.ok)throw new Error(raw.slice(0,800));
+    let data;try{data=JSON.parse(raw)}catch{throw new Error('The AI provider returned a non-JSON response.')}
+    const rawAnswer=data.choices?.[0]?.message?.content||data.output_text||'No response text returned.';
+    const parsed=parseCoachOutput(rawAnswer);
+    const answer=parsed.answer||rawAnswer;
+    const userInsert=await supa.from('coach_messages').insert([{thread_id:activeThread,user_id:session.user.id,role:'user',content:text||'[Files attached]'}]).select().single();
+    if(userInsert.error)throw userInsert.error;
+    const ins=await supa.from('coach_messages').insert([{thread_id:activeThread,user_id:session.user.id,role:'assistant',content:answer}]);
+    if(ins.error)throw ins.error;
+    await saveDurableMemories(parsed.memories,userInsert.data?.id);
+    messages.push({role:'user',content:text||'[Files attached]'},{role:'assistant',content:answer}); pendingFiles=[];
+    const oldTitle=threads.find(t=>t.id===activeThread)?.title||'New coaching chat';
+    await supa.from('coach_threads').update({title:oldTitle==='New coaching chat'?(text||'Study coaching').slice(0,40):oldTitle}).eq('id',activeThread);
+    await loadThreads(); await render('coach');
+  }catch(e){alert('Coach error: '+e.message)}finally{$('sendBtn').disabled=false}
+}
 async function readText(file){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(String(fr.result).slice(0,20000));fr.onerror=rej;fr.readAsText(file)})}
 async function coachFromToday(){const l=await supa.from('daily_logs').select('*').eq('log_date',today()).maybeSingle(); activeThread=activeThread||threads[0]?.id; await render('coach'); if($('coachInput')){$('coachInput').value=`Here is my actual today log: ${JSON.stringify(l.data||{})}. Based on my current schedule, what should I do for the rest of today and what should I change tomorrow?`;}}
-async function settings(){const ai=aiConfig(); $('view-settings').innerHTML=`<div class="grid two"><div class="card"><h3>Study profile</h3><div class="form-grid"><div><label class="label">Name</label><input class="input" id="s_name" value="${esc(profile.full_name||'')}"></div><div><label class="label">Class / year</label><input class="input" id="s_class" value="${esc(profile.class_level||'')}"></div><div><label class="label">Target exam</label><select id="s_exam"><option ${profile.target_exam==='JEE Main + Advanced'?'selected':''}>JEE Main + Advanced</option><option ${profile.target_exam==='JEE Main'?'selected':''}>JEE Main</option><option ${profile.target_exam==='JEE Advanced'?'selected':''}>JEE Advanced</option></select></div><div><label class="label">Target date</label><input class="input" id="s_date" type="date" value="${profile.target_date||''}"></div></div><div class="row" style="margin-top:14px"><button class="btn primary" onclick="saveSettings()">Save profile</button><span id="setMsg" class="small"></span></div></div><div class="card"><h3>Your AI provider</h3><div class="small" style="margin-bottom:12px">The key stays in this browser and is not sent to Supabase. Use your own provider/account.</div><div class="form-grid"><div><label class="label">Provider</label><select id="a_provider"><option value="openrouter" ${ai.provider==='openrouter'?'selected':''}>OpenRouter</option><option value="gateway" ${ai.provider==='gateway'?'selected':''}>Vercel AI Gateway</option><option value="custom" ${ai.provider==='custom'?'selected':''}>Custom OpenAI-compatible</option></select></div><div><label class="label">Model</label><input id="a_model" class="input" value="${esc(ai.model)}"></div><div style="grid-column:1/-1"><label class="label">Endpoint</label><input id="a_endpoint" class="input" value="${esc(ai.endpoint)}"></div><div style="grid-column:1/-1"><label class="label">API key</label><input id="a_key" class="input" type="password" value="${esc(ai.key)}"></div></div><div class="row" style="margin-top:14px"><button class="btn primary" onclick="saveAISettings()">Save AI settings</button><button class="btn" onclick="testAI()">Test AI</button></div><div class="footer-note" style="margin-top:10px">OpenRouter uses its OpenAI-compatible chat endpoint. Vercel AI Gateway currently exposes an OpenAI-compatible endpoint at https://ai-gateway.vercel.sh/v1.</div></div></div><div class="card" style="margin-top:14px"><h3>Cloud connection</h3><div class="small">${esc(getConfig()?.url||'')}</div><div class="row" style="margin-top:10px"><button class="btn danger" onclick="resetCloud()">Change Supabase project</button></div></div>`}
-async function saveSettings(){const r=await supa.from('profiles').update({full_name:$('s_name').value,class_level:$('s_class').value,target_exam:$('s_exam').value,target_date:$('s_date').value||null}).eq('id',session.user.id).select().single();if(r.error)alert(r.error.message);else{profile=r.data;$('setMsg').innerHTML='<span class="success">Saved.</span>'}}
+async function settings(){const ai=aiConfig(); $('view-settings').innerHTML=`<div class="grid two"><div class="card"><h3>Study profile</h3><div class="small" style="margin-bottom:12px">These details help the coach understand the person behind the numbers. They stay in your Supabase profile.</div><div class="form-grid"><div><label class="label">Name</label><input class="input" id="s_name" value="${esc(profile.full_name||'')}"></div><div><label class="label">Class / year</label><input class="input" id="s_class" value="${esc(profile.class_level||'')}"></div><div><label class="label">Target exam</label><select id="s_exam"><option ${profile.target_exam==='JEE Main + Advanced'?'selected':''}>JEE Main + Advanced</option><option ${profile.target_exam==='JEE Main'?'selected':''}>JEE Main</option><option ${profile.target_exam==='JEE Advanced'?'selected':''}>JEE Advanced</option></select></div><div><label class="label">Target date</label><input id="s_date" type="date" class="input" value="${profile.target_date||''}"></div><div style="grid-column:1/-1"><label class="label">About me</label><textarea id="s_about" placeholder="Anything the coach should know about you as a student or person.">${esc(profile.about_me||'')}</textarea></div><div style="grid-column:1/-1"><label class="label">Current situation</label><textarea id="s_situation" placeholder="School/coaching, family responsibilities, commute, tests coming up, or anything affecting your routine.">${esc(profile.current_situation||'')}</textarea></div><div style="grid-column:1/-1"><label class="label">What is difficult right now?</label><textarea id="s_challenges" placeholder="Backlog, consistency, pressure around tests, lack of focus, confidence, sleep, etc.">${esc(profile.current_challenges||'')}</textarea></div><div style="grid-column:1/-1"><label class="label">Regular commitments</label><textarea id="s_commitments" placeholder="School, coaching, commute, family responsibilities, sports, or other fixed commitments.">${esc(profile.non_study_commitments||'')}</textarea></div><div style="grid-column:1/-1"><label class="label">Coach style</label><select id="s_style"><option value="warm, calm, direct and practical" ${profile.coach_style==='warm, calm, direct and practical'?'selected':''}>Warm, calm, direct and practical</option><option value="very concise and direct" ${profile.coach_style==='very concise and direct'?'selected':''}>Very concise and direct</option><option value="supportive and reflective" ${profile.coach_style==='supportive and reflective'?'selected':''}>Supportive and reflective</option><option value="structured and analytical" ${profile.coach_style==='structured and analytical'?'selected':''}>Structured and analytical</option></select></div></div><div class="row" style="margin-top:14px"><button class="btn primary" onclick="saveSettings()">Save profile</button><span id="setMsg" class="small"></span></div></div><div class="card"><h3>Your AI provider</h3><div class="small" style="margin-bottom:12px">Your key stays in this browser and is not saved to Supabase. The coach can use any OpenAI-compatible endpoint.</div><div class="form-grid"><div><label class="label">Provider</label><select id="a_provider"><option value="openrouter" ${ai.provider==='openrouter'?'selected':''}>OpenRouter</option><option value="gateway" ${ai.provider==='gateway'?'selected':''}>Vercel AI Gateway</option><option value="custom" ${ai.provider==='custom'?'selected':''}>Custom OpenAI-compatible</option></select></div><div><label class="label">Model</label><input id="a_model" class="input" value="${esc(ai.model)}"></div><div style="grid-column:1/-1"><label class="label">Endpoint</label><input id="a_endpoint" class="input" value="${esc(ai.endpoint)}"></div><div style="grid-column:1/-1"><label class="label">API key</label><input id="a_key" class="input" type="password" value="${esc(ai.key)}"></div></div><div class="notice" style="margin-top:12px">For a free OpenRouter coach model, you can use <b>qwen/qwen3-235b-a22b-2507:free</b>. OpenRouter currently lists that endpoint at $0 pricing with a 262K-token context window; free endpoints are rate-limited.</div><div class="free-guard"><b>Free-only safety is ON.</b> OpenRouter requests are blocked unless the selected model is explicitly marked <code>:free</code> (or <code>openrouter/free</code>), and the app checks the live model price before each request.</div><div class="row" style="margin-top:14px"><button class="btn primary" onclick="saveAISettings()">Save AI settings</button><button class="btn" onclick="testAI()">Test AI</button></div><div class="footer-note" style="margin-top:10px">The coach works best when the model supports long context and follows system instructions reliably.</div></div></div><div class="card" style="margin-top:14px"><h3>Cloud connection</h3><div class="small">${esc(getConfig()?.url||'')}</div><div class="row" style="margin-top:10px"><button class="btn danger" onclick="resetCloud()">Change Supabase project</button></div></div>`}
+async function saveSettings(){const r=await supa.from('profiles').update({full_name:$('s_name').value,class_level:$('s_class').value,target_exam:$('s_exam').value,target_date:$('s_date').value||null,about_me:$('s_about').value,current_situation:$('s_situation').value,current_challenges:$('s_challenges').value,non_study_commitments:$('s_commitments').value,coach_style:$('s_style').value}).eq('id',session.user.id).select().single();if(r.error){alert('Profile save failed. Run the latest ai_coach_upgrade.sql in Supabase once, then try again.\n\n'+r.error.message);return}profile=r.data;$('setMsg').innerHTML='<span class="success">Saved. Your coach will use this context in future chats.</span>'}
 function saveAISettings(){saveAI({provider:$('a_provider').value,model:$('a_model').value.trim(),endpoint:$('a_endpoint').value.trim(),key:$('a_key').value.trim()});alert('AI settings saved locally in this browser.');}
-async function testAI(){saveAISettings();const ai=aiConfig();if(!ai.key)return alert('Add an API key first.');try{const headers={'Content-Type':'application/json','Authorization':'Bearer '+ai.key};if(ai.provider==='openrouter'){headers['HTTP-Referer']=location.origin;headers['X-OpenRouter-Title']='JEE Coach'}const r=await fetch(ai.endpoint,{method:'POST',headers,body:JSON.stringify({model:ai.model,messages:[{role:'user',content:'Reply with exactly: JEE Coach connection works.'}],max_tokens:30})});const t=await r.text();if(!r.ok)throw new Error(t.slice(0,500));alert('AI connection works.')}catch(e){alert('AI test failed: '+e.message)}}
+async function testAI(){saveAISettings();const ai=aiConfig();if(!ai.key)return alert('Add an API key first.');try{if(ai.provider==='openrouter'){const guard=await ensureFreeOpenRouterModel(ai);if(!guard.ok)return alert(guard.message)}const headers={'Content-Type':'application/json','Authorization':'Bearer '+ai.key};if(ai.provider==='openrouter'){headers['HTTP-Referer']=location.origin;headers['X-OpenRouter-Title']='JEE Coach'}const r=await fetch(ai.endpoint,{method:'POST',headers,body:JSON.stringify({model:ai.model,messages:[{role:'user',content:'Reply with exactly: JEE Coach connection works.'}],max_tokens:30})});const t=await r.text();if(!r.ok)throw new Error(t.slice(0,500));alert('AI connection works.')}catch(e){alert('AI test failed: '+e.message)}}
 
 function openModal(html){$('modalBody').innerHTML=html;$('modal').classList.remove('hidden')}function closeModal(){$('modal').classList.add('hidden')}
 function resetCloud(){if(confirm('This only removes the saved Supabase connection from this browser. Your cloud data is not deleted.')){localStorage.removeItem(DB_KEY);location.reload()}}
@@ -145,7 +453,7 @@ $('loginBtn').onclick=async()=>{try{const {data,error}=await supa.auth.signInWit
 $('logoutBtn').onclick=async()=>{await supa.auth.signOut();location.reload()};
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>render(b.dataset.view)));
 supa=null;
-window.render=render;window.renderCurrent=renderCurrent;window.toggleBlock=toggleBlock;window.openAddBlock=openAddBlock;window.editBlock=editBlock;window.saveBlock=saveBlock;window.deleteBlock=deleteBlock;window.generatePlan=generatePlan;window.saveDaily=saveDaily;window.newThread=newThread;window.switchThread=switchThread;window.removePending=removePending;window.sendCoach=sendCoach;window.coachFromToday=coachFromToday;window.saveSettings=saveSettings;window.saveAISettings=saveAISettings;window.testAI=testAI;window.closeModal=closeModal;window.resetCloud=resetCloud;window.renderCoach=coach;
+window.render=render;window.renderCurrent=renderCurrent;window.toggleBlock=toggleBlock;window.openAddBlock=openAddBlock;window.editBlock=editBlock;window.saveBlock=saveBlock;window.deleteBlock=deleteBlock;window.generatePlan=generatePlan;window.saveDaily=saveDaily;window.newThread=newThread;window.switchThread=switchThread;window.removePending=removePending;window.sendCoach=sendCoach;window.coachFromToday=coachFromToday;window.saveSettings=saveSettings;window.saveAISettings=saveAISettings;window.testAI=testAI;window.closeModal=closeModal;window.resetCloud=resetCloud;window.renderCoach=coach;window.memory=memory;window.addMemoryManually=addMemoryManually;window.deleteMemory=deleteMemory;
 boot().catch(e=>{showOnly('setupView');$('setupMsg').innerHTML='<span class="error">'+esc(e.message)+'</span>'});
 </script>
 </body>
