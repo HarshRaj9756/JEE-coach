@@ -746,7 +746,12 @@ async function sendCoach(){
     const resp=await fetch(ai.endpoint,{method:'POST',headers,body:JSON.stringify(body)}); const raw=await resp.text();
     if(!resp.ok)throw new Error(raw.slice(0,800));
     let data;try{data=JSON.parse(raw)}catch{throw new Error('The AI provider returned a non-JSON response.')}
-    const rawAnswer=data.choices?.[0]?.message?.content||data.output_text||'No response text returned.';
+    const rawAnswer =
+  typeof data?.choices?.[0]?.message?.content === 'string'
+    ? data.choices[0].message.content
+    : Array.isArray(data?.choices?.[0]?.message?.content)
+      ? data.choices[0].message.content.map(x => x?.text || '').join('\n')
+      : data?.output_text || '';
     const actionParsed=parseJarvisActions(rawAnswer);
     const parsed=parseCoachOutput(actionParsed.answer);
     let answer=parsed.answer||actionParsed.answer||rawAnswer;
